@@ -99,7 +99,7 @@ const TRACKS = [
     icon: <RefreshCw className="w-8 h-8" />,
     description: '메타인지를 활용해 나의 학습 습관을 진단하고, 과학적인 근거를 바탕으로 나만의 성장 전략을 수립합니다.',
     prompts: [
-      { id: 1, title: '나의 습관 점검', text: (habit) => `나는 공부할 때 ${habit} 습관이 있어. 이걸 심리학에서는 뭐라고 부르는지, 왜 이런 일이 생기는지 알려줘.` },
+      { id: 1, title: '나의 습관 점검', text: (habit) => `나는 공부할 때 ${habit}이 있어. 이걸 심리학에서는 뭐라고 부르는지, 왜 이런 일이 생기는지 알려줘.` },
       { id: 2, title: '성적 분석', text: (habit) => `지난 모의고사 [취약 과목의 내용의 어떤 부분인지 작성]에서 자꾸 틀리는 이유가 뭘까? 내 생각의 과정 중 어디에서 실수가 생기는지 진단해 줘.` },
       { id: 3, title: '효율적 공부법', text: (habit) => `내가 아는 것과 모르는 것을 정확히 구별하는 '메타인지'를 높이기 위해, 배운 내용을 다시 떠올리는 연습을 어떻게 하면 좋을까?` },
       { id: 4, title: '집중력 기르기', text: (habit) => `집중력이 떨어지는 이유를 설명해주고, 딴생각 없이 공부에 깊이 빠져들 수 있는 환경을 만드는 방법을 알려줘.` },
@@ -265,8 +265,8 @@ function App() {
                   <li>3가지 트랙중 관심있는 <span className="text-indigo-600 underline decoration-indigo-200 underline-offset-4">탐구 트랙 </span>1개를 선택합니다.</li>
                   <li>인공지능에게 나를 알려주기 위해 <span className="text-indigo-600 underline decoration-indigo-200 underline-offset-4"> 정보</span>를 입력합니다.</li>
                   <li>질문을 작성하고 <span className="text-indigo-600 underline decoration-indigo-200 underline-offset-4">복사</span>하여 인공지능 대화창에 붙여넣어 대화합니다.</li>
-                  <li>10개 질문 후, <span className="text-indigo-600 underline decoration-indigo-200 underline-offset-4"> 대화 내용 요약과 느낌점</span>을 제출합니다.</li>
-                  <li>대화 요약본으로 <span className="text-indigo-600 underline decoration-indigo-200 underline-offset-4"> 포스터를 만들고 </span>제출합니다.</li>
+                  <li>10개 질문 후, <span className="text-indigo-600 underline decoration-indigo-200 underline-offset-4"> 1000자 대화 내용 요약과 느낌점</span>을 제출합니다.</li>
+                  <li>1000자 대화 요약본으로 <span className="text-indigo-600 underline decoration-indigo-200 underline-offset-4"> 인포그래픽를 만들고 </span>제출합니다.</li>
                   <li>준비가 되었다면 <span className="text-indigo-600 underline decoration-indigo-200 underline-offset-4">성장 로드맵 시작하기 버튼</span>을 눌러 시작하세요.</li>
               </ol>
             </div>
@@ -384,13 +384,13 @@ function App() {
               </div>
               <div className="space-y-4">
                 <label className="text-sm font-black text-indigo-600 uppercase tracking-widest block pl-2">
-                  {selectedTrack?.id === 'reflection' ? '나의 공부 습관(~하는/~는 으로 끝맺음)' : selectedTrack?.id === 'career' ? '관심 전공' : '탐구하고 싶은 사회 문제'}
+                  {selectedTrack?.id === 'reflection' ? '나의 공부 습관(하는 습관 으로 끝맺음)' : selectedTrack?.id === 'career' ? '관심 전공' : '탐구하고 싶은 사회 문제'}
                 </label>
                 <textarea
                   value={interests[selectedTrack.id] || ''} 
                   onChange={(e) => setInterests(prev => ({ ...prev, [selectedTrack.id]: e.target.value }))}
                   className={`w-full p-6 border-4 rounded-[2rem] outline-none transition-all h-40 resize-none text-xl font-black leading-relaxed ${interests[selectedTrack.id] ? 'border-slate-100 bg-slate-50 text-slate-900' : 'border-indigo-100 bg-white'}`}
-                  placeholder={selectedTrack?.id === 'reflection' ? "예: 계획만 짜고 실천하지 않는" : selectedTrack?.id === 'career' ? "컴퓨터공학, 생명공학, 간호 등" : "예: 지방 소멸 문제 등"}
+                  placeholder={selectedTrack?.id === 'reflection' ? "예: 계획만 짜고 실천하지 않는 습관" : selectedTrack?.id === 'career' ? "컴퓨터공학, 생명공학, 간호, 경영, 실용 음악 등" : "예: 지방 소멸 문제 등"}
                 />
               </div>
             </div>
@@ -564,7 +564,7 @@ function App() {
                     </button>
                 </div>
                 <div className="text-slate-900 leading-[1.7] text-3xl whitespace-pre-wrap font-black p-12 bg-slate-50 rounded-[3rem] border-2 border-indigo-100 italic shadow-inner">
-                    "방금 대화 내용을 1000자 내외로 요약해줘."
+                    "방금 대화 내용을 문단 구분없이 1000자 내외로 요약해줘. 단, 과장해서 요약하지 말고 고등학교 수준에서 이해할 수 있는 내용으로 요약해줘"
                 </div>
               </div>
             </div>
@@ -587,9 +587,9 @@ function App() {
               <div className="w-28 h-28 bg-green-100 text-green-600 rounded-[2.5rem] flex items-center justify-center mx-auto shadow-2xl border-4 border-white">
                 <CheckCircle2 className="w-16 h-16" />
               </div>
-              <h2 className="text-7xl font-black text-slate-900 tracking-tight">탐구 완료! 결과 제출하기</h2>
+              <h2 className="text-7xl font-black text-slate-900 tracking-tight">활동1: 대화 요약, 느낀점</h2>
               <p className="text-2xl text-slate-600 font-bold leading-relaxed">
-                수고하셨습니다! 아래의 최종 결과물을 정리하여 <span className="text-green-600">리로스쿨</span>에 제출해 주세요.
+                수고하셨습니다! 요약문과 느낀점을 정리하여 <span className="text-green-600">리로스쿨</span>에 제출해 주세요.
               </p>
             </div>
 
@@ -672,6 +672,8 @@ function App() {
                   <p>3. 요약된 1000자 붙여넣고, <b>'삽입'</b>를 클릭합니다.</p>
                   <p>4. 오른쪽 스튜디오 인포그래픽에서 화살표를 누르고 <b>'세로모드로 설정'</b> 합니다.</p>
                   <p>5. <b>'인포그래픽'</b> 버튼을 눌러 시각화 자료를 즉시 자동 생성합니다.</p>
+                  <p>5-1. 만약! 구글 로그인이 안된다면 인공지능 사이트 대화창 밑에 이미지 버튼을 클릭하고 <b>'1000자로 요약한 대화 내용을 바탕으로 한글로 된 세로형 인포그래픽 그려줘'</b>라고 명령하고 인포그래픽을 만들어 보세요.</p>
+                  <p>6. <span className="text-indigo-600">제출방법!!</span> 학급 단톡방에 공유된 구글 슬라이드 링크에 본인 번호 슬라이드에 붙여 넣어서 제출해주세요.</p>
                 </div>
               </div>
             </div>
